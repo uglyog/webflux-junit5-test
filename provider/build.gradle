@@ -1,0 +1,7 @@
+plugins {
+    id 'webflux.junit5.test.java-application-conventions'
+}
+
+dependencies {
+
+}
