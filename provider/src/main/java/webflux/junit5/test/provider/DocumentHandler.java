@@ -9,8 +9,18 @@ import reactor.core.publisher.Mono;
 
 @Component
 public class DocumentHandler {
+  private DocumentList documentList = new DocumentList();
+
+  public DocumentList getDocumentList() {
+    return documentList;
+  }
+
+  public void setDocumentList(DocumentList documentList) {
+    this.documentList = documentList;
+  }
+
   public Mono<ServerResponse> documents(ServerRequest request) {
     return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON)
-      .body(BodyInserters.fromValue("Hello, Spring!"));
+      .body(BodyInserters.fromValue(documentList));
   }
 }

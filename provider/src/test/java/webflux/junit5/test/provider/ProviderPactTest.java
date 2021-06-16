@@ -1,6 +1,5 @@
 package webflux.junit5.test.provider;
 
-import au.com.dius.pact.provider.junit5.HttpTestTarget;
 import au.com.dius.pact.provider.junit5.PactVerificationContext;
 import au.com.dius.pact.provider.junitsupport.Provider;
 import au.com.dius.pact.provider.junitsupport.State;
@@ -14,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+
+import java.util.List;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -42,6 +43,8 @@ public class ProviderPactTest {
 
   @State("There are at least two documents")
   void setupDocuments() {
-
+    List<Document> documents = documentHandler.getDocumentList().getDocuments();
+    documents.add(new Document("TestDoco", "ABC123412341234"));
+    documents.add(new Document("TestDoco2", "ABC123456789012"));
   }
 }
