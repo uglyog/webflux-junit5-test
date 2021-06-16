@@ -1,0 +1,98 @@
+{
+  "consumer": {
+    "name": "DocumentConsumer"
+  },
+  "interactions": [
+    {
+      "comments": {
+        "testname": "webflux.junit5.test.consumer.ConsumerPactTest.testFetchDocumentList(MockServer)",
+        "text": [
+
+        ]
+      },
+      "description": "a request for the documents",
+      "key": "9a4a49e",
+      "providerStates": [
+        {
+          "name": "There are at least two documents"
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "path": "/documents"
+      },
+      "response": {
+        "body": {
+          "content": {
+            "documents": [
+              {
+                "id": "AAA123456789012",
+                "name": "doco_001"
+              }
+            ]
+          },
+          "contentType": "application/json; charset=UTF-8",
+          "encoded": false
+        },
+        "headers": {
+          "Content-Type": [
+            "application/json; charset=UTF-8"
+          ]
+        },
+        "matchingRules": {
+          "body": {
+            "$.documents": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.documents[*].id": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "regex",
+                  "regex": "\\w{3}\\d{12}"
+                }
+              ]
+            },
+            "$.documents[*].name": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            }
+          },
+          "header": {
+            "Content-Type": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "regex",
+                  "regex": "application/json(;\\s?charset=[\\w\\-]+)?"
+                }
+              ]
+            }
+          }
+        },
+        "status": 200
+      },
+      "type": "Synchronous/HTTP"
+    }
+  ],
+  "metadata": {
+    "pact-jvm": {
+      "version": "4.2.6"
+    },
+    "pactSpecification": {
+      "version": "4.0"
+    }
+  },
+  "provider": {
+    "name": "DocumentProvider"
+  }
+}
